@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
 :root {
   --primary:        #DE350D;  /* Rojo Roblox — CTAs principales */
   --primary-dark:   #B22A0A;  /* Hover primary */
@@ -12,9 +14,9 @@
   --warning:        #FFA502;  /* Naranja — advertencias */
   --error:          #FF4757;  /* Rojo — errores */
   --border:         #2A2A2A;  /* Bordes sutiles */
-}
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  font-family: 'Inter', sans-serif;
+}
 
 /* Base styles */
 * {
@@ -27,12 +29,165 @@ body {
   background-color: var(--bg-dark);
   color: var(--text-primary);
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
-/* Glassmorphism */
+/* ==================== Animaciones de entrada ==================== */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatParticles {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(222, 53, 13, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(222, 53, 13, 0.6);
+  }
+}
+
+@keyframes mockupFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.hero-fade-in-delayed {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.hero-fade-in-delayed-2 {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+/* ==================== Partículas de fondo ==================== */
+.particle-field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(222, 53, 13, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatParticles linear infinite;
+}
+
+/* Fondo degradado rojo sutil */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 30%, rgba(222, 53, 13, 0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 70%, rgba(99, 71, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==================== Glassmorphism ==================== */
 .glass {
   background: rgba(22, 22, 22, 0.6);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(42, 42, 42, 0.3);
   border-radius: 8px;
+}
+
+.mockup-glass {
+  background: rgba(22, 22, 22, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+/* ==================== Gradient text ==================== */
+.gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, #A0A0A0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==================== CTA button glow ==================== */
+.cta-primary {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  animation: pulseGlow 3s ease infinite;
+  display: inline-block;
+}
+
+.cta-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(222, 53, 13, 0.4);
+}
+
+.cta-secondary {
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 14px 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(42, 42, 42, 0.5);
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.cta-secondary:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+/* ==================== Mockup ==================== */
+.mockup-container {
+  animation: mockupFloat 4s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
 }
