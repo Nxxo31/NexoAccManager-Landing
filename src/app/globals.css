@@ -1,0 +1,38 @@
+:root {
+  --primary:        #DE350D;  /* Rojo Roblox — CTAs principales */
+  --primary-dark:   #B22A0A;  /* Hover primary */
+  --accent:         #6347FF;  /* Púrpura — elementos secundarios */
+  --accent-light:   #8B6FFF;  /* Hover accent */
+  --bg-dark:        #0D0D0D;  /* Fondo principal */
+  --bg-card:        #161616;  /* Cards y paneles */
+  --bg-surface:     #1E1E1E;  /* Superficies elevadas */
+  --text-primary:   #FFFFFF;  /* Texto principal */
+  --text-secondary: #A0A0A0;  /* Texto secundario */
+  --success:        #2ED573;  /* Verde — estados activos */
+  --warning:        #FFA502;  /* Naranja — advertencias */
+  --error:          #FF4757;  /* Rojo — errores */
+  --border:         #2A2A2A;  /* Bordes sutiles */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(22, 22, 22, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(42, 42, 42, 0.3);
+  border-radius: 8px;
+}
