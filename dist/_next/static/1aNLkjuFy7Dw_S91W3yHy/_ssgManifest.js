@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002F[locale]\u002Fforgot-password","\u002F[locale]\u002Flogin","\u002F[locale]\u002Fregister","\u002F[locale]\u002Freset-password\u002F[token]","\u002F[locale]\u002Fverify-email\u002F[token]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

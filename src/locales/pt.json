@@ -1,0 +1,74 @@
+{
+  "auth": {
+    "title": "NexoAccManager",
+    "register": {
+      "title": "Criar conta",
+      "email": "Endereço de e-mail",
+      "password": "Senha",
+      "confirmPassword": "Confirmar senha",
+      "submit": "Cadastrar-se",
+      "terms": "Ao se cadastrar, você concorda com os Termos de Serviço e a Política de Privacidade",
+      "alreadyHaveAccount": "Já tem uma conta?",
+      "login": "Entrar"
+    },
+    "login": {
+      "title": "Entrar",
+      "email": "Endereço de e-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "forgotPassword": "Esqueceu sua senha?",
+      "dontHaveAccount": "Não tem uma conta?",
+      "register": "Cadastrar-se"
+    },
+    "verifyEmail": {
+      "title": "Verificar e-mail",
+      "subtitle": "Verifique sua caixa de entrada para encontrar o link de verificação",
+      "resend": "Reenviar e-mail de verificação",
+      "verified": "E-mail verificado com sucesso",
+      "backToLogin": "Voltar ao entrar"
+    },
+    "forgotPassword": {
+      "title": "Redefinir senha",
+      "email": "Endereço de e-mail",
+      "submit": "Enviar link de redefinição",
+      "backToLogin": "Voltar ao entrar"
+    },
+    "resetPassword": {
+      "title": "Definir nova senha",
+      "password": "Nova senha",
+      "confirmPassword": "Confirmar nova senha",
+      "submit": "Redefinir senha",
+      "success": "Senha redefinida com sucesso",
+      "backToLogin": "Voltar ao entrar"
+    }
+  },
+  "errors": {
+    "requiredFields": "Por favor, preencha todos os campos obrigatórios",
+    "passwordMismatch": "As senhas não coincidem",
+    "termsRequired": "Você deve aceitar os termos e condições",
+    "invalidEmail": "Por favor, insira um endereço de e-mail válido",
+    "registrationFailed": "O registro falhou. Por favor, tente novamente.",
+    "loginFailed": "E-mail ou senha incorretos",
+    "emailFailed": "Falha ao enviar o e-mail. Por favor, tente novamente.",
+    "passwordTooShort": "A senha deve ter pelo menos 8 caracteres",
+    "verificationFailed": "A verificação falhou. Token inválido ou expirado.",
+    "resetFailed": "Falha ao redefinir a senha. Por favor, tente novamente."
+  },
+  "messages": {
+    "registrationSuccess": "Registro bem-sucedido! Por favor, verifique seu e-mail para verificar sua conta.",
+    "resetEmailSent": "Se existir uma conta com esse e-mail, você receberá um link para redefinir a senha em breve.",
+    "resetSuccess": "Sua senha foi redefinida com sucesso. Agora você pode fazer login com sua nova senha.",
+    "verificationSuccess": "Seu e-mail foi verificado com sucesso. Agora você pode fazer login em sua conta."
+  },
+  "languageSelector": {
+    "label": "Idioma",
+    "es": "Espanhol",
+    "en": "Inglês",
+    "pt": "Português"
+  },
+  "links": {
+    "home": "Início",
+    "features": "Recursos",
+    "pricing": "Precios"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "auth": {
+    "title": "NexoAccManager",
+    "register": {
+      "title": "Create account",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Sign up",
+      "terms": "By signing up, you agree to the Terms of Service and Privacy Policy",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Sign in"
+    },
+    "login": {
+      "title": "Sign in",
+      "email": "Email address",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot your password?",
+      "dontHaveAccount": "Don't have an account?",
+      "register": "Sign up"
+    },
+    "verifyEmail": {
+      "title": "Verify email",
+      "subtitle": "Check your inbox for the verification link",
+      "resend": "Resend verification email",
+      "verified": "Email verified successfully",
+      "backToLogin": "Back to sign in"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "email": "Email address",
+      "submit": "Send reset link",
+      "backToLogin": "Back to sign in"
+    },
+    "resetPassword": {
+      "title": "Set new password",
+      "password": "New password",
+      "confirmPassword": "Confirm new password",
+      "submit": "Reset password",
+      "success": "Password reset successfully",
+      "backToLogin": "Back to sign in"
+    }
+  },
+  "errors": {
+    "requiredFields": "Please fill in all required fields",
+    "passwordMismatch": "Passwords do not match",
+    "termsRequired": "You must accept the terms and conditions",
+    "invalidEmail": "Please enter a valid email address",
+    "registrationFailed": "Registration failed. Please try again.",
+    "loginFailed": "Invalid email or password",
+    "emailFailed": "Failed to send email. Please try again.",
+    "passwordTooShort": "Password must be at least 8 characters long",
+    "verificationFailed": "Verification failed. Invalid or expired token.",
+    "resetFailed": "Password reset failed. Please try again."
+  },
+  "messages": {
+    "registrationSuccess": "Registration successful! Please check your email to verify your account.",
+    "resetEmailSent": "If an account exists with that email, you will receive a password reset link shortly.",
+    "resetSuccess": "Your password has been reset successfully. You can now log in with your new password.",
+    "verificationSuccess": "Your email has been verified successfully. You can now sign in to your account."
+  },
+  "languageSelector": {
+    "label": "Language",
+    "es": "Spanish",
+    "en": "English",
+    "pt": "Portuguese"
+  },
+  "links": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing"
+  }
+}
