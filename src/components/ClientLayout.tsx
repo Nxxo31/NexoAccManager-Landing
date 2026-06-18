@@ -2,12 +2,13 @@
 
 import { NextIntlClientProvider } from 'next-intl';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './Header';
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const locale = pathname.split('/')[1] || 'es';
+  const [messages, setMessages] = useState<Record<string, any> | null>(null);
 
   useEffect(() => {
     // Update hreflang tags when route changes
@@ -31,8 +32,40 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     }
   }, [pathname, locale]);
 
+  // Load messages for the current locale
+  useEffect(() => {
+    const loadMessages = async () => {
+      try {
+        let msg;
+        if (locale === 'en') {
+          msg = (await import('@/app/messages/en.json')).default;
+        } else if (locale === 'es') {
+          msg = (await import('@/app/messages/es.json')).default;
+        } else {
+          msg = (await import('@/app/messages/pt.json')).default;
+        }
+        setMessages(msg);
+      } catch (error) {
+        console.error('Error loading messages:', error);
+        // Fallback to empty object
+        setMessages({});
+      }
+    };
+    loadMessages();
+  }, [locale]);
+
+  if (!messages) {
+    // Loading state - render children without translation for now
+    return (
+      <>
+        <Header />
+        {children}
+      </>
+    );
+  }
+
   return (
-    <NextIntlClientProvider locale={locale}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
       <>
         <Header />
         {children}

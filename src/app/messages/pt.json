@@ -1,0 +1,49 @@
+{
+  "auth": {
+    "forgotPassword": {
+      "title": "Esqueci minha senha",
+      "subtitle": "Digite seu e-mail para redefinir sua senha",
+      "email": "E-mail",
+      "submit": "Redefinir Senha",
+      "success": "Se existir uma conta com esse e-mail, você receberá um link de redefinição",
+      "error": "Falha ao enviar e-mail de redefinição de senha"
+    },
+    "login": {
+      "title": "Entrar no NexoAccManager",
+      "subtitle": "Bem-vindo de volta! Por favor, faça login em sua conta",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "forgotPassword": "Esqueceu sua senha?",
+      "invalidCredentials": "E-mail ou senha inválidos",
+      "error": "Ocorreu um erro inesperado"
+    },
+    "resetPassword": {
+      "title": "Redefinir Senha",
+      "subtitle": "Digite sua nova senha",
+      "password": "Senha",
+      "confirmPassword": "Confirmar Senha",
+      "submit": "Redefinir Senha",
+      "success": "Senha redefinida com sucesso",
+      "error": "Falha ao redefinir senha"
+    },
+    "verifyEmail": {
+      "title": "Verificar Endereço de E-mail",
+      "subtitle": "Enviamos um e-mail de verificação para seu endereço",
+      "verified": "E-mail verificado com sucesso",
+      "messages": {
+        "verificationSuccess": "Seu e-mail foi verificado com sucesso. Agora você pode fazer login em sua conta."
+      },
+      "errors": {
+        "verificationFailed": "Falha na verificação. Token inválido ou expirado."
+      },
+      "backToLogin": "Voltar ao Login"
+    }
+  },
+  "links": {
+    "home": "Início",
+    "features": "Recursos",
+    "pricing": "Preços",
+    "faq": "Perguntas Frequentes"
+  }
+}

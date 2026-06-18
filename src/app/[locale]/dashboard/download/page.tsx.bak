@@ -16,7 +16,6 @@ export function generateStaticParams() {
 
 export default function DownloadPage({ params }: { params: { locale: string } }): ReactElement {
 
-  const { locale } = params;
   const t = (key: string): string | string[] => {
     const translations: Record<string, Record<string, string[] | string>> = {
       es: {

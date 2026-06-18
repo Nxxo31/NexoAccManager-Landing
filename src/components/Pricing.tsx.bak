@@ -77,31 +77,6 @@ const plans = [
 
 export default function Pricing() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
-  const handleCheckout = async (planName: string) => {
-    try {
-      const res = await fetch('/api/stripe/checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ plan: planName }),
-      })
-      
-      if (!res.ok) {
-        throw new Error('Failed to create checkout session')
-      }
-      
-      const data = await res.json()
-      // Redirect to Stripe checkout
-      if (data.url) {
-        window.location.href = data.url
-      }
-    } catch (error) {
-      console.error('Checkout error:', error)
-      alert('Error al crear la sesión de pago. Por favor, intenta nuevamente.')
-    }
-  }
-
 
   return (
     <section id="pricing" className="relative py-24 px-6">
@@ -170,8 +145,8 @@ export default function Pricing() {
                 ))}
               </ul>
 
-                            <button
-                onClick={() => handleCheckout(plan.name)}
+              <Link
+                href="/register"
                 className={`block w-full text-center py-3 rounded-lg font-medium transition-all ${
                   plan.highlighted
                     ? 'bg-primary text-white hover:bg-primary-dark'
@@ -179,7 +154,7 @@ export default function Pricing() {
                 }`}
               >
                 {plan.cta}
-              </button>
+              </Link>
             </div>
           ))}
         </div>

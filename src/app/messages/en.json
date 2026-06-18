@@ -1,0 +1,49 @@
+{
+  "auth": {
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email to reset your password",
+      "email": "Email",
+      "submit": "Reset Password",
+      "success": "If an account exists with that email, you'll receive a reset link",
+      "error": "Failed to send reset password email"
+    },
+    "login": {
+      "title": "Sign in to NexoAccManager",
+      "subtitle": "Welcome back! Please sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot password?",
+      "invalidCredentials": "Invalid email or password",
+      "error": "An unexpected error occurred"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "subtitle": "Enter your new password",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Reset Password",
+      "success": "Password has been reset successfully",
+      "error": "Failed to reset password"
+    },
+    "verifyEmail": {
+      "title": "Verify Email Address",
+      "subtitle": "We've sent a verification email to your address",
+      "verified": "Email verified successfully",
+      "messages": {
+        "verificationSuccess": "Your email has been verified successfully. You can now log in to your account."
+      },
+      "errors": {
+        "verificationFailed": "Verification failed. Invalid or expired token."
+      },
+      "backToLogin": "Back to Login"
+    }
+  },
+  "links": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "faq": "FAQ"
+  }
+}

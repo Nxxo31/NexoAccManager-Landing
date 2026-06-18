@@ -1,0 +1,49 @@
+{
+  "auth": {
+    "forgotPassword": {
+      "title": "Olvidé mi contraseña",
+      "subtitle": "Ingresa tu correo para restablecer tu contraseña",
+      "email": "Correo electrónico",
+      "submit": "Restablecer contraseña",
+      "success": "Si existe una cuenta con ese correo, recibirás un enlace de restablecimiento",
+      "error": "Falló el envío del correo de restablecimiento de contraseña"
+    },
+    "login": {
+      "title": "Iniciar sesión en NexoAccManager",
+      "subtitle": "¡Bienvenido de vuelta! Por favor inicia sesión en tu cuenta",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "forgotPassword": "¿Olvidó su contraseña?",
+      "invalidCredentials": "Correo electrónico o contraseña inválidos",
+      "error": "Ocurrió un error inesperado"
+    },
+    "resetPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Ingresa tu nueva contraseña",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "submit": "Restablecer contraseña",
+      "success": "La contraseña se ha restablecido correctamente",
+      "error": "Falló el restablecimiento de la contraseña"
+    },
+    "verifyEmail": {
+      "title": "Verificar dirección de correo",
+      "subtitle": "Hemos enviado un correo de verificación a tu dirección",
+      "verified": "Correo verificado exitosamente",
+      "messages": {
+        "verificationSuccess": "Tu correo ha sido verificado exitosamente. Ahora puedes iniciar sesión en tu cuenta."
+      },
+      "errors": {
+        "verificationFailed": "La verificación falló. Token inválido o expirado."
+      },
+      "backToLogin": "Volver al inicio de sesión"
+    }
+  },
+  "links": {
+    "home": "Inicio",
+    "features": "Características",
+    "pricing": "Precios",
+    "faq": "Preguntas frecuentes"
+  }
+}
