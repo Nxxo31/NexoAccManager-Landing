@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Link from 'next/link';
+import { apiFetch } from '@/app/lib/api';
 
 interface RegisterFormProps {
   locale: string;
@@ -44,7 +45,16 @@ export default function RegisterForm({ locale }: RegisterFormProps) {
     setLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const result = await apiFetch('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!result.success) {
+        setError(result.error || t('errors.registrationFailed') || 'Registration failed. Please try again.');
+        return;
+      }
+
       setSuccess(t('messages.registrationSuccess') || 'Registration successful! Please check your email to verify your account.');
       setEmail('');
       setPassword('');

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { apiFetch } from '@/app/lib/api';
 
 interface VerifyEmailFormProps {
   locale: string;
@@ -21,7 +22,16 @@ export default function VerifyEmailForm({ locale, token }: VerifyEmailFormProps)
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        const result = await apiFetch('/auth/verify-email', {
+          method: 'POST',
+          body: JSON.stringify({ token }),
+        });
+
+        if (!result.success) {
+          setError(result.error || t('errors.verificationFailed') || 'Verification failed. Invalid or expired token.');
+          return;
+        }
+
         setVerified(true);
       } catch (err: any) {
         setError(err.message || t('errors.verificationFailed') || 'Verification failed. Invalid or expired token.');

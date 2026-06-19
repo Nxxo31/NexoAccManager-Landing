@@ -1,17 +1,16 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Link from 'next/link';
+import { apiFetch } from '@/app/lib/api';
 
 interface ForgotPasswordFormProps {
   locale: string;
 }
 
 export default function ForgotPasswordForm({ locale }: ForgotPasswordFormProps) {
-  const t = useTranslations('auth.forgotPassword');
-  const router = useRouter();
+  const t = useTranslations('auth');
   
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,7 +36,16 @@ export default function ForgotPasswordForm({ locale }: ForgotPasswordFormProps) 
     setLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const result = await apiFetch('/auth/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      });
+
+      if (!result.success) {
+        setError(result.error || t('errors.emailFailed') || 'Failed to send reset email. Please try again.');
+        return;
+      }
+
       setSuccess(t('messages.resetEmailSent') || 'If an account exists with that email, you will receive a password reset link shortly.');
       setEmail('');
     } catch (err: any) {

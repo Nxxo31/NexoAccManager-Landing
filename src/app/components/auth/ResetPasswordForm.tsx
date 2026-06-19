@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Link from 'next/link';
+import { apiFetch } from '@/app/lib/api';
 
 interface ResetPasswordFormProps {
   locale: string;
@@ -43,7 +44,16 @@ export default function ResetPasswordForm({ locale, token }: ResetPasswordFormPr
     setLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const result = await apiFetch('/auth/reset-password', {
+        method: 'POST',
+        body: JSON.stringify({ token, password }),
+      });
+
+      if (!result.success) {
+        setError(result.error || t('errors.resetFailed') || 'Password reset failed. Please try again.');
+        return;
+      }
+
       setSuccess(t('messages.resetSuccess') || 'Your password has been reset successfully. You can now log in with your new password.');
       setPassword('');
       setConfirmPassword('');
