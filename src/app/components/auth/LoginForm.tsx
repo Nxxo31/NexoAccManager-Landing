@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import Link from 'next/link';
+import { apiFetch, setAccessToken } from '@/app/lib/api';
 
 interface LoginFormProps {
   locale: string;
@@ -30,7 +31,17 @@ export default function LoginForm({ locale }: LoginFormProps) {
     setLoading(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const result = await apiFetch<{ accessToken: string; refreshToken: string; user: any }>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!result.success) {
+        setError(result.error || t('errors.loginFailed') || 'Invalid email or password');
+        return;
+      }
+
+      setAccessToken(result.data!.accessToken);
       router.push(`/${locale}/dashboard`);
     } catch (err: any) {
       setError(err.message || t('errors.loginFailed') || 'Invalid email or password');
