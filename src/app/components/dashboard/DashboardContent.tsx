@@ -3,15 +3,29 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { apiFetch } from '@/app/lib/api';
 
-// Mock data — replaces with real API calls when backend is ready
-const mockData = {
-  plan: 'Pro',
-  planPrice: '$10.00/mes',
-  accountUsage: { current: 12, limit: 20 },
-  nextPayment: '15/07/2026',
-};
+interface UserData {
+  id: string;
+  email: string;
+  name: string | null;
+  emailVerified: boolean;
+  language: string;
+  createdAt: string;
+  license: {
+    plan: string;
+    accountLimit: number;
+    status: string;
+    currentPeriodEnd: string | null;
+  } | null;
+  planDetails: {
+    id: string;
+    name: string;
+    price: number;
+    accountLimit: number;
+  } | null;
+}
 
 function PlanBadge({ plan }: { plan: string }) {
   const colors: Record<string, string> = {
@@ -42,6 +56,19 @@ function ProgressBar({ current, limit }: { current: number; limit: number }) {
   );
 }
 
+function formatPrice(cents: number, locale: string): string {
+  return new Intl.NumberFormat(locale === 'en' ? 'en-US' : locale === 'pt' ? 'pt-BR' : 'es-ES', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(cents);
+}
+
+function formatDate(dateStr: string, locale: string): string {
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : locale === 'pt' ? 'pt-BR' : 'es-ES', {
+    dateStyle: 'medium',
+  }).format(new Date(dateStr));
+}
+
 export default function DashboardContent({ params }: { params: { locale: string } }) {
   const t = useTranslations('dashboard.overview');
   const tTitle = useTranslations('dashboard');
@@ -49,6 +76,21 @@ export default function DashboardContent({ params }: { params: { locale: string 
   const pathname = usePathname();
   const locale = params.locale;
   const [copied, setCopied] = useState(false);
+  const [user, setUser] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const result = await apiFetch<UserData>('/auth/me');
+      if (result.success) {
+        setUser(result.data!);
+      } else {
+        setError(result.error || 'Failed to load user data');
+      }
+      setLoading(false);
+    })();
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(`${typeof window !== 'undefined' ? window.location.origin : ''}/${locale}/dashboard`);
@@ -56,8 +98,34 @@ export default function DashboardContent({ params }: { params: { locale: string 
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const usagePct = Math.round((mockData.accountUsage.current / mockData.accountUsage.limit) * 100);
-  const showUpgrade = usagePct >= 70;
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto flex items-center justify-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent" />
+      </div>
+    );
+  }
+
+  if (error || !user) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-12">
+        <p className="text-error mb-4">{error || 'Not authenticated'}</p>
+        <Link href={`/${locale}/login`} className="text-accent hover:underline">
+          {t('signIn', { default: 'Sign in' })}
+        </Link>
+      </div>
+    );
+  }
+
+  const planName = user.license?.plan ?? 'Free';
+  const accountLimit = user.license?.accountLimit ?? 5;
+  const planPrice = user.planDetails?.price != null
+    ? formatPrice(user.planDetails.price, locale)
+    : '$0';
+
+  // Approximate usage: use 0 since we don't track account usage on the backend yet
+  const usagePct = 0;
+  const showUpgrade = false;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -65,7 +133,7 @@ export default function DashboardContent({ params }: { params: { locale: string 
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-text-primary">{tTitle('title')}</h1>
-          <p className="text-sm text-text-secondary mt-1">{t('title').toLowerCase()}</p>
+          <p className="text-sm text-text-secondary mt-1">{user.email}</p>
         </div>
         <button
           onClick={handleCopy}
@@ -86,9 +154,11 @@ export default function DashboardContent({ params }: { params: { locale: string 
             <span className="text-accent text-sm">◈</span>
           </div>
           <div className="flex items-end gap-3">
-            <PlanBadge plan={mockData.plan} />
+            <PlanBadge plan={planName} />
           </div>
-          <p className="text-xs text-text-secondary mt-3">{mockData.planPrice}</p>
+          <p className="text-xs text-text-secondary mt-3">
+            {planPrice}{planPrice !== '$0' ? '/mes' : ''}
+          </p>
         </div>
 
         {/* Usage card */}
@@ -100,15 +170,9 @@ export default function DashboardContent({ params }: { params: { locale: string 
             <span className="text-accent text-sm">◎</span>
           </div>
           <p className="text-2xl font-bold text-text-primary">
-            {mockData.accountUsage.current}
-            <span className="text-text-secondary text-base font-normal">/{mockData.accountUsage.limit}</span>
+            <span className="text-text-secondary text-base font-normal">/ {accountLimit}</span>
           </p>
-          <ProgressBar current={mockData.accountUsage.current} limit={mockData.accountUsage.limit} />
-          {showUpgrade && (
-            <p className="text-xs text-warning mt-2">
-              {usagePct >= 90 ? '⚠️ Límite casi alcanzado' : '✨ Considera mejorar tu plan'}
-            </p>
-          )}
+          <ProgressBar current={0} limit={accountLimit} />
         </div>
 
         {/* Next payment card */}
@@ -120,9 +184,10 @@ export default function DashboardContent({ params }: { params: { locale: string 
             <span className="text-accent text-sm">◉</span>
           </div>
           <p className="text-lg font-semibold text-text-primary">
-            {t('renewsOn')}
+            {user.license?.currentPeriodEnd
+              ? formatDate(user.license.currentPeriodEnd, locale)
+              : t('noActiveSubscription', { default: 'Sin suscripción activa' })}
           </p>
-          <p className="text-2xl font-bold text-text-primary mt-1">{mockData.nextPayment}</p>
         </div>
       </div>
 
