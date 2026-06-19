@@ -3,18 +3,34 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useState, useEffect } from 'react';
+import { apiFetch } from '@/app/lib/api';
 
-// Mock data — replaces with real API calls when backend is ready
-const mockBilling = {
-  currentPlan: 'Pro',
-  planPrice: '$10.00/mes',
-  nextPayment: '15/07/2026',
-  paymentHistory: [
-    { date: '15/06/2026', amount: '$10.00', status: 'paid' as const },
-    { date: '15/05/2026', amount: '$10.00', status: 'paid' as const },
-    { date: '15/04/2026', amount: '$10.00', status: 'paid' as const },
-  ],
-};
+interface UserData {
+  id: string;
+  email: string;
+  license: {
+    plan: string;
+    currentPeriodEnd: string | null;
+    stripeCustomerId: string | null;
+    stripeSubscriptionId: string | null;
+  } | null;
+  planDetails: {
+    id: string;
+    name: string;
+    price: number;
+    accountLimit: number;
+    features: string[];
+  } | null;
+}
+
+interface Plan {
+  id: string;
+  name: string;
+  price: number;
+  accountLimit: number;
+  features: string[];
+}
 
 function StatusBadge({ status }: { status: string }) {
   const t = useTranslations('dashboard.billing');
@@ -32,15 +48,22 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-function PlansModal({ locale, onClose }: { locale: string; onClose: () => void }) {
+function PlansModal({
+  locale,
+  plans,
+  currentPlan,
+  onClose,
+  onSelectPlan,
+  loading
+}: {
+  locale: string;
+  plans: Plan[];
+  currentPlan: string;
+  onClose: () => void;
+  onSelectPlan: (planId: string) => void;
+  loading: boolean;
+}) {
   const t = useTranslations('dashboard.billing');
-  const plans = [
-    { name: 'Free', price: '$0/mes', accounts: '5 cuentas', highlight: false },
-    { name: 'Starter', price: '$5/mes', accounts: '10 cuentas', highlight: false },
-    { name: 'Pro', price: '$10/mes', accounts: '20 cuentas', highlight: true },
-    { name: 'Business', price: '$20/mes', accounts: '30 cuentas', highlight: false },
-    { name: 'Enterprise', price: '$50/mes', accounts: '∞ cuentas', highlight: false },
-  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
@@ -52,26 +75,31 @@ function PlansModal({ locale, onClose }: { locale: string; onClose: () => void }
           </button>
         </div>
         <div className="p-6 space-y-3">
-          {plans.map((plan) => (
-            <button
-              key={plan.name}
-              className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
-                plan.highlight
-                  ? 'bg-accent/10 border-accent/40 text-text-primary'
-                  : 'bg-bg-surface/50 border-border/40 text-text-secondary hover:border-border/70 hover:text-text-primary'
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-semibold text-sm">{plan.name}</p>
-                  <p className="text-xs text-text-secondary mt-0.5">{plan.accounts}</p>
+          {plans.map((plan) => {
+            const isCurrent = plan.id === currentPlan;
+            return (
+              <button
+                key={plan.id}
+                onClick={() => !isCurrent && onSelectPlan(plan.id)}
+                disabled={isCurrent || loading}
+                className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
+                  isCurrent
+                    ? 'bg-accent/5 border-accent/30 text-text-primary opacity-60 cursor-default'
+                    : 'bg-bg-surface/50 border-border/40 text-text-secondary hover:border-border/70 hover:text-text-primary'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-semibold text-sm">{plan.name}{isCurrent ? ' (actual)' : ''}</p>
+                    <p className="text-xs text-text-secondary mt-0.5">{plan.accountLimit === 999999 ? '∞ cuentas' : `${plan.accountLimit} cuentas`}</p>
+                  </div>
+                  <span className={`font-semibold ${isCurrent ? 'text-text-secondary' : 'text-accent'}`}>
+                    {plan.price === 0 ? 'Gratis' : `$${plan.price}/mes`}
+                  </span>
                 </div>
-                <span className={`font-semibold ${plan.highlight ? 'text-accent' : 'text-text-primary'}`}>
-                  {plan.price}
-                </span>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
         <div className="p-6 border-t border-border/50">
           <p className="text-xs text-text-secondary text-center">
@@ -83,13 +111,75 @@ function PlansModal({ locale, onClose }: { locale: string; onClose: () => void }
   );
 }
 
+function formatDate(dateStr: string, locale: string): string {
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : locale === 'pt' ? 'pt-BR' : 'es-ES', {
+    dateStyle: 'medium',
+  }).format(new Date(dateStr));
+}
+
 export default function BillingContent({ params }: { params: { locale: string } }) {
   const t = useTranslations('dashboard.billing');
   const tTitle = useTranslations('dashboard');
   const pathname = usePathname();
   const locale = params.locale;
-  const [showPlans, setShowPlans] = React.useState(false);
-  const [showCancelConfirm, setShowCancelConfirm] = React.useState(false);
+  const [showPlans, setShowPlans] = useState(false);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [user, setUser] = useState<UserData | null>(null);
+  const [plans, setPlans] = useState<Plan[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [changingPlan, setChangingPlan] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const [userResult, plansResult] = await Promise.all([
+        apiFetch<UserData>('/auth/me'),
+        apiFetch<{ plans: Plan[] }>('/license/plans'),
+      ]);
+
+      if (userResult.success) setUser(userResult.data!);
+      if (plansResult.success) setPlans(plansResult.data!.plans);
+      setLoading(false);
+    })();
+  }, []);
+
+  const handleSelectPlan = async (planId: string) => {
+    setChangingPlan(true);
+    const result = await apiFetch<{ url: string }>('/stripe/checkout/create-session', {
+      method: 'POST',
+      body: JSON.stringify({ plan: planId }),
+    });
+    setChangingPlan(false);
+
+    if (result.success && result.data?.url) {
+      window.location.href = result.data.url;
+    } else {
+      alert(result.error || 'No se pudo iniciar el checkout');
+    }
+    setShowPlans(false);
+  };
+
+  const handleCancelSubscription = async () => {
+    const result = await apiFetch('/stripe/portal', { method: 'POST' });
+    if (result.success && (result.data as any)?.url) {
+      window.location.href = (result.data as any).url;
+    } else {
+      alert(result.error || 'No se pudo abrir el portal');
+    }
+    setShowCancelConfirm(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto flex items-center justify-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent" />
+      </div>
+    );
+  }
+
+  const currentPlanName = user?.license?.plan ?? 'FREE';
+  const planPrice = user?.planDetails?.price != null
+    ? `$${user.planDetails.price}/mes`
+    : 'Gratis';
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -103,8 +193,8 @@ export default function BillingContent({ params }: { params: { locale: string } 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p className="text-xs font-medium text-text-secondary uppercase tracking-wider mb-2">{t('currentPlan')}</p>
-            <p className="text-2xl font-bold text-text-primary">{mockBilling.currentPlan}</p>
-            <p className="text-accent font-semibold text-sm mt-1">{mockBilling.planPrice}</p>
+            <p className="text-2xl font-bold text-text-primary">{currentPlanName}</p>
+            <p className="text-accent font-semibold text-sm mt-1">{planPrice}</p>
           </div>
           <div className="flex flex-col items-start sm:items-end gap-2">
             <button
@@ -113,51 +203,50 @@ export default function BillingContent({ params }: { params: { locale: string } 
             >
               {t('changePlan')}
             </button>
-            <button
-              onClick={() => setShowCancelConfirm(true)}
-              className="px-4 py-2 text-xs text-text-secondary hover:text-error transition-colors"
-            >
-              {t('cancelSubscription')}
-            </button>
+            {user?.license?.stripeSubscriptionId && (
+              <button
+                onClick={() => setShowCancelConfirm(true)}
+                className="px-4 py-2 text-xs text-text-secondary hover:text-error transition-colors"
+              >
+                {t('cancelSubscription')}
+              </button>
+            )}
           </div>
         </div>
 
         <div className="mt-4 pt-4 border-t border-border/50">
           <p className="text-sm text-text-secondary">
-            {t('nextPayment')}: <span className="font-medium text-text-primary">{t('renewsOn')} {mockBilling.nextPayment}</span>
+            {t('nextPayment')}:{' '}
+            <span className="font-medium text-text-primary">
+              {user?.license?.currentPeriodEnd
+                ? formatDate(user.license.currentPeriodEnd, locale)
+                : t('noActiveSubscription', { default: 'Sin suscripción activa' })}
+            </span>
           </p>
         </div>
       </div>
 
-      {/* Payment history */}
+      {/* Payment history placeholder */}
       <div className="bg-bg-card/60 backdrop-blur-xl border border-border/50 rounded-2xl overflow-hidden">
         <div className="px-6 py-4 border-b border-border/50">
           <h2 className="text-base font-semibold text-text-primary">{t('paymentHistory')}</h2>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-bg-surface/50">
-                <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">{t('date')}</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">{t('amount')}</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">{t('status')}</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/30">
-              {mockBilling.paymentHistory.map((payment, i) => (
-                <tr key={i} className="hover:bg-bg-surface/30 transition-colors">
-                  <td className="px-6 py-4 text-sm text-text-primary whitespace-nowrap">{payment.date}</td>
-                  <td className="px-6 py-4 text-sm text-text-primary whitespace-nowrap">{payment.amount}</td>
-                  <td className="px-6 py-4 whitespace-nowrap"><StatusBadge status={payment.status} /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="p-6 text-center text-text-secondary text-sm">
+          {t('noPaymentHistory', { default: 'Aún no hay pagos registrados' })}
         </div>
       </div>
 
       {/* Plans modal */}
-      {showPlans && <PlansModal locale={locale} onClose={() => setShowPlans(false)} />}
+      {showPlans && (
+        <PlansModal
+          locale={locale}
+          plans={plans}
+          currentPlan={currentPlanName}
+          onClose={() => setShowPlans(false)}
+          onSelectPlan={handleSelectPlan}
+          loading={changingPlan}
+        />
+      )}
 
       {/* Cancel confirmation */}
       {showCancelConfirm && (
@@ -173,7 +262,7 @@ export default function BillingContent({ params }: { params: { locale: string } 
                 Mantener suscripción
               </button>
               <button
-                onClick={() => setShowCancelConfirm(false)}
+                onClick={handleCancelSubscription}
                 className="flex-1 px-4 py-2.5 bg-error/20 hover:bg-error/30 text-error rounded-xl text-sm font-medium transition-colors"
               >
                 Cancelar
@@ -185,5 +274,3 @@ export default function BillingContent({ params }: { params: { locale: string } 
     </div>
   );
 }
-
-import React from 'react';
