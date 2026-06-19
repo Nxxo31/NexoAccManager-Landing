@@ -2,21 +2,18 @@
 
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { apiFetch, clearAccessToken } from '@/app/lib/api';
+import { useRouter } from 'next/navigation';
 
 type Theme = 'dark' | 'light' | 'roblox-classic' | 'custom';
 
-interface Settings {
+interface UserSettings {
+  id: string;
+  email: string;
+  name: string | null;
   language: string;
-  theme: Theme;
-  emailNotifications: boolean;
 }
-
-const mockUser: Settings = {
-  language: 'es',
-  theme: 'dark',
-  emailNotifications: true,
-};
 
 const languages: Record<string, string> = {
   es: 'Español',
@@ -27,26 +24,74 @@ const languages: Record<string, string> = {
 export default function SettingsContent({ params }: { params: { locale: string } }) {
   const t = useTranslations('dashboard.settings');
   const tTitle = useTranslations('dashboard');
-  const pathname = usePathname();
+  const router = useRouter();
   const locale = params.locale;
 
-  const [settings, setSettings] = useState<Settings>(mockUser);
+  const [user, setUser] = useState<UserSettings | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [savingField, setSavingField] = useState<string | null>(null);
 
-  const handleChange = (field: keyof Settings, value: any) => {
-    setSettings((prev) => ({ ...prev, [field]: value }));
-  };
+  const [selectedLanguage, setSelectedLanguage] = useState('es');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    (async () => {
+      const result = await apiFetch<UserSettings>('/auth/me');
+      if (result.success) {
+        setUser(result.data!);
+        setSelectedLanguage(result.data!.language || 'es');
+      }
+      setLoading(false);
+    })();
+  }, []);
+
+  const handleLanguageChange = async (lang: string) => {
+    setSelectedLanguage(lang);
+    setSavingField('language');
     setIsSaving(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setError(null);
+
+    const result = await apiFetch<UserSettings>('/auth/me', {
+      method: 'PATCH',
+      body: JSON.stringify({ language: lang }),
+    });
+
     setIsSaving(false);
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
+    setSavingField(null);
+
+    if (result.success) {
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+    } else {
+      setError(result.error || 'Error saving');
+    }
   };
+
+  const handleLogout = async () => {
+    clearAccessToken();
+    router.push(`/${locale}/login`);
+  };
+
+  if (loading) {
+    return (
+      <div className="max-w-2xl mx-auto flex items-center justify-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="max-w-2xl mx-auto text-center py-12">
+        <p className="text-error mb-4">{error || 'Not authenticated'}</p>
+        <a href={`/${locale}/login`} className="text-accent hover:underline">
+          {t('signIn', { default: 'Sign in' })}
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -56,130 +101,72 @@ export default function SettingsContent({ params }: { params: { locale: string }
       </div>
 
       {showSuccess && (
-        <div className="bg-success/20 border border-success/30 text-success rounded-xl px-4 py-3 my-4 text-sm flex items-center gap-2">
-          ✓ {t('saved')}
+        <div className="bg-success/20 border border-success/30 text-success rounded-xl px-4 py-3 text-sm flex items-center gap-2">
+          ✓ Cambios guardados
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-bg-card/60 backdrop-blur-xl border border-border/50 rounded-2xl p-6">
-        <div className="space-y-5">
-          {/* Language */}
-          <div className="space-y-3">
-            <label className="flex items-center gap-2 text-sm font-medium text-text-primary">
-              {t('language')}
-            </label>
-            <select
-              value={settings.language}
-              onChange={(e) => handleChange('language', e.target.value)}
-              className="w-full px-4 py-2 rounded-lg border border-border/40 bg-bg-surface/60 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent/50 transition-colors"
-              disabled={isSaving}
-            >
-              {Object.entries(languages).map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </div>
+      {error && (
+        <div className="bg-error/20 border border-error/30 text-error rounded-xl px-4 py-3 text-sm">
+          {error}
+        </div>
+      )}
 
-          {/* Theme */}
-          <div className="space-y-3">
-            <label className="flex items-center gap-2 text-sm font-medium text-text-primary">
-              {t('theme')}
-            </label>
-            <div className="grid grid-cols-2 gap-3">
-              <label className="flex items-center gap-3 p-3 rounded-lg border border-border/40 bg-bg-surface/60 transition-all duration-200 hover:bg-bg-card/40 cursor-pointer">
-                <input
-                  type="radio"
-                  name="theme"
-                  value="dark"
-                  checked={settings.theme === 'dark'}
-                  onChange={(e) => handleChange('theme', e.target.value as Theme)}
-                  className="h-4 w-4 text-accent"
-                  disabled={isSaving}
-                />
-                <span>{t('dark')}</span>
-              </label>
-              <label className="flex items-center gap-3 p-3 rounded-lg border border-border/40 bg-bg-surface/60 transition-all duration-200 hover:bg-bg-card/40 cursor-pointer">
-                <input
-                  type="radio"
-                  name="theme"
-                  value="light"
-                  checked={settings.theme === 'light'}
-                  onChange={(e) => handleChange('theme', e.target.value as Theme)}
-                  className="h-4 w-4 text-accent"
-                  disabled={isSaving}
-                />
-                <span>{t('light')}</span>
-              </label>
-              <label className="flex items-center gap-3 p-3 rounded-lg border border-border/40 bg-bg-surface/60 transition-all duration-200 hover:bg-bg-card/40 cursor-pointer">
-                <input
-                  type="radio"
-                  name="theme"
-                  value="roblox-classic"
-                  checked={settings.theme === 'roblox-classic'}
-                  onChange={(e) => handleChange('theme', e.target.value as Theme)}
-                  className="h-4 w-4 text-accent"
-                  disabled={isSaving}
-                />
-                <span>{t('robloxClassic')}</span>
-              </label>
-              <label className="flex items-center gap-3 p-3 rounded-lg border border-border/40 bg-bg-surface/60 transition-all duration-200 hover:bg-bg-card/40 cursor-pointer">
-                <input
-                  type="radio"
-                  name="theme"
-                  value="custom"
-                  checked={settings.theme === 'custom'}
-                  onChange={(e) => handleChange('theme', e.target.value as Theme)}
-                  className="h-4 w-4 text-accent"
-                  disabled={isSaving}
-                />
-                <span>{t('custom')}</span>
-                <span className="ml-2 text-xs text-text-secondary">(Enterprise)</span>
-              </label>
-            </div>
+      {/* Account info */}
+      <div className="bg-bg-card/60 backdrop-blur-xl border border-border/50 rounded-2xl p-6">
+        <h2 className="text-sm font-semibold text-text-primary mb-4">{t('accountInfo')}</h2>
+        <div className="space-y-3">
+          <div className="flex justify-between text-sm">
+            <span className="text-text-secondary">Email</span>
+            <span className="text-text-primary font-medium">{user.email}</span>
           </div>
-
-          {/* Email notifications */}
-          <div className="space-y-3">
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="email-notifications"
-                checked={settings.emailNotifications}
-                onChange={(e) => handleChange('emailNotifications', e.target.checked)}
-                className="h-4 w-4 text-accent"
-                disabled={isSaving}
-              />
-              <label htmlFor="email-notifications" className="ml-3 text-sm font-medium text-text-primary">
-                {t('emailNotifications')}
-              </label>
-            </div>
-            <p className="text-xs text-text-secondary mt-1">
-              Recibir notificaciones por correo sobre pagos, actividad y actualizaciones
-            </p>
+          <div className="flex justify-between text-sm">
+            <span className="text-text-secondary">Nombre</span>
+            <span className="text-text-primary font-medium">{user.name || '—'}</span>
           </div>
         </div>
-
-        <div className="pt-4 border-t border-border/50">
+        <div className="pt-4 border-t border-border/50 mt-4">
           <button
-            type="submit"
-            disabled={isSaving}
-            className="w-full px-5 py-2.5 bg-accent hover:bg-accent-light text-white rounded-xl text-sm font-semibold transition-colors shadow-lg shadow-accent/20 flex items-center justify-center gap-2"
+            onClick={handleLogout}
+            className="text-sm text-error hover:text-error/80 transition-colors"
           >
-            {isSaving ? (
-              <>
-                <svg className="h-4 w-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9h0c-5.302 0-9.614 4.283-9.614 9.614v.057c0 3.041 1.735 5.564 4.03 7.367a7.508 7.508 0 005.764 2.997" />
-                </svg>
-                <span>{t('saving')}</span>
-              </>
-            ) : (
-              t('saveChanges')
-            )}
+            {t('logout', { default: 'Cerrar sesión' })}
           </button>
         </div>
-      </form>
+      </div>
+
+      {/* Language */}
+      <div className="bg-bg-card/60 backdrop-blur-xl border border-border/50 rounded-2xl p-6">
+        <h2 className="text-sm font-semibold text-text-primary mb-4">{t('language')}</h2>
+        <div className="space-y-3">
+          <label className="flex items-center gap-2 text-sm font-medium text-text-primary">
+            {t('language')}
+          </label>
+          <select
+            value={selectedLanguage}
+            onChange={(e) => handleLanguageChange(e.target.value)}
+            className="w-full px-4 py-2 rounded-lg border border-border/40 bg-bg-surface/60 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent/50 transition-colors"
+            disabled={isSaving}
+          >
+            {Object.entries(languages).map(([code, name]) => (
+              <option key={code} value={code}>
+                {name}
+              </option>
+            ))}
+          </select>
+          {savingField === 'language' && (
+            <p className="text-xs text-text-secondary">{t('saving')}</p>
+          )}
+        </div>
+      </div>
+
+      {/* Theme — not editable from landing, info only */}
+      <div className="bg-bg-card/60 backdrop-blur-xl border border-border/50 rounded-2xl p-6">
+        <h2 className="text-sm font-semibold text-text-primary mb-4">{t('theme')}</h2>
+        <p className="text-sm text-text-secondary">
+          {t('themeNote', { default: 'El tema se configura en la aplicación de escritorio.' })}
+        </p>
+      </div>
     </div>
   );
 }

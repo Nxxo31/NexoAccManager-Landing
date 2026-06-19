@@ -1,12 +1,6 @@
 import SettingsContent from '@/app/components/dashboard/SettingsContent';
 
-export function generateStaticParams() {
-  return [
-    { locale: 'es' },
-    { locale: 'en' },
-    { locale: 'pt' },
-  ];
-}
+export const dynamic = 'force-dynamic';
 
 export default function SettingsPage({ params }: { params: { locale: string } }) {
   return (
