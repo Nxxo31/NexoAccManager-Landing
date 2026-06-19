@@ -14,7 +14,7 @@
       "email": "E-mail",
       "password": "Senha",
       "submit": "Entrar",
-      "forgotPassword": "Esqueceu sua senha?",
+      "forgotPassword": "Esqueceu a senha?",
       "invalidCredentials": "E-mail ou senha inválidos",
       "error": "Ocorreu um erro inesperado"
     },
@@ -25,7 +25,7 @@
       "confirmPassword": "Confirmar Senha",
       "submit": "Redefinir Senha",
       "success": "Senha redefinida com sucesso",
-      "error": "Falha ao redefinir senha"
+      "error": "Falha ao redefinir a senha"
     },
     "verifyEmail": {
       "title": "Verificar Endereço de E-mail",
@@ -45,5 +45,90 @@
     "features": "Recursos",
     "pricing": "Preços",
     "faq": "Perguntas Frequentes"
+  },
+  "nav": {
+    "overview": "Visão Geral",
+    "billing": "Cobrança",
+    "download": "Download",
+    "settings": "Configurações",
+    "backToHome": "Voltar ao Início"
+  },
+  "dashboard": {
+    "title": "Painel de Controle",
+    "overview": {
+      "title": "Visão Geral",
+      "currentPlan": "Plano Atual",
+      "accountUsage": "Uso de Contas",
+      "nextPayment": "Próximo Pagamento",
+      "renewsOn": "Renova em",
+      "accountsUsed": "{current} de {limit} contas usadas",
+      "upgrade": "Melhorar Plano",
+      "viewBilling": "Ver Cobrança"
+    },
+    "billing": {
+      "title": "Cobrança",
+      "currentPlan": "Plano Atual",
+      "planPrice": "Preço do Plano",
+      "changePlan": "Alterar Plano",
+      "nextPayment": "Próximo Pagamento",
+      "renewsOn": "Renova em",
+      "paymentHistory": "Histórico de Pagamentos",
+      "date": "Data",
+      "amount": "Valor",
+      "status": "Status",
+      "paid": "Pago",
+      "pending": "Pendente",
+      "failed": "Falhou",
+      "cancelled": "Cancelado",
+      "cancelSubscription": "Cancelar Assinatura",
+      "cancelConfirm": "Tem certeza de que deseja cancelar sua assinatura? Você perderá acesso aos recursos do seu plano."
+    },
+    "download": {
+      "title": "Download",
+      "subtitle": "Baixe e instale o NexoAccManager no seu dispositivo",
+      "selectOS": "Selecione seu sistema operacional",
+      "windows": "Windows",
+      "mac": "macOS",
+      "linux": "Linux",
+      "downloadBtn": "Baixar para {os}",
+      "reqs": "Requisitos do Sistema",
+      "reqsList": {
+        "windows": "Windows 10 ou superior · 4GB RAM · 500MB espaço",
+        "mac": "macOS 11 Big Sur ou superior · 4GB RAM · 500MB espaço",
+        "linux": "Ubuntu 20.04 / Debian 11 ou superior · 4GB RAM · 500MB espaço"
+      },
+      "stepsWindows": {
+        "1": "Baixe o instalador .exe do GitHub Releases",
+        "2": "Execute o instalador e siga as instruções do assistente",
+        "3": "Inicie NexoAccManager no menu Iniciar",
+        "4": "Inicie sessão com sua conta NexoAccManager"
+      },
+      "stepsMac": {
+        "1": "Baixe o arquivo .dmg do GitHub Releases",
+        "2": "Abra o .dmg e arraste NexoAccManager para Aplicativos",
+        "3": "Inicie NexoAccManager no Launchpad (permitindo execução se necessário)",
+        "4": "Inicie sessão com sua conta NexoAccManager"
+      },
+      "stepsLinux": {
+        "1": "Baixe o arquivo .AppImage do GitHub Releases",
+        "2": "Dê permissões de execução: chmod +x NexoAccManager.AppImage",
+        "3": "Execute: ./NexoAccManager.AppImage (ou clique duas vezes)",
+        "4": "Inicie sessão com sua conta NexoAccManager"
+      }
+    },
+    "settings": {
+      "title": "Configurações",
+      "language": "Idioma",
+      "theme": "Tema",
+      "notifications": "Notificações",
+      "emailNotifications": "Notificações por E-mail",
+      "saveChanges": "Guardar Alterações",
+      "saved": "Configurações guardadas",
+      "dark": "Escuro",
+      "light": "Claro",
+      "robloxClassic": "Clássico Roblox",
+      "custom": "Personalizado",
+      "customInfo": "Disponível no plano Enterprise"
+    }
   }
 }

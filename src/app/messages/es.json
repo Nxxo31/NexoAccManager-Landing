@@ -45,5 +45,93 @@
     "features": "Características",
     "pricing": "Precios",
     "faq": "Preguntas frecuentes"
+  },
+  "nav": {
+    "overview": "Resumen",
+    "billing": "Facturación",
+    "download": "Descarga",
+    "settings": "Configuración",
+    "backToHome": "Volver al inicio"
+  },
+  "dashboard": {
+    "title": "Panel de control",
+    "overview": {
+      "title": "Resumen",
+      "currentPlan": "Plan actual",
+      "accountUsage": "Uso de cuentas",
+      "nextPayment": "Próximo pago",
+      "renewsOn": "Se renueva el",
+      "accountsUsed": "{current} de {limit} cuentas usadas",
+      "upgrade": "Mejorar plan",
+      "viewBilling": "Ver facturación"
+    },
+    "billing": {
+      "title": "Facturación",
+      "currentPlan": "Plan actual",
+      "planPrice": "Precio del plan",
+      "changePlan": "Cambiar plan",
+      "nextPayment": "Próximo pago",
+      "renewsOn": "Se renueva el",
+      "paymentHistory": "Historial de pagos",
+      "date": "Fecha",
+      "amount": "Monto",
+      "status": "Estado",
+      "paid": "Pagado",
+      "pending": "Pendiente",
+      "failed": "Fallido",
+      "cancelled": "Cancelado",
+      "cancelSubscription": "Cancelar suscripción",
+      "cancelConfirm": "¿Estás seguro de que quieres cancelar tu suscripción? Perderás acceso a las funciones de tu plan."
+    },
+    "download": {
+      "title": "Descarga",
+      "subtitle": "Descarga e instala NexoAccManager en tu dispositivo",
+      "selectOS": "Selecciona tu sistema operativo",
+      "windows": "Windows",
+      "mac": "macOS",
+      "linux": "Linux",
+      "downloadBtn": "Descargar para {os}",
+      "reqs": "Requisitos del sistema",
+      "version": "Versión",
+      "releaseDate": "Fecha de lanzamiento",
+      "reqsList": {
+        "windows": "Windows 10 o superior · 4GB RAM · 500MB espacio",
+        "mac": "macOS 11 Big Sur o superior · 4GB RAM · 500MB espacio",
+        "linux": "Ubuntu 20.04 / Debian 11 o superior · 4GB RAM · 500MB espacio"
+      },
+      "installGuide": "Guía de instalación",
+      "stepsWindows": {
+        "1": "Descarga el instalador .exe desde GitHub Releases",
+        "2": "Ejecuta el instalador y sigue las instrucciones del asistente",
+        "3": "Inicia NexoAccManager desde el menú de inicio",
+        "4": "Inicia sesión con tu cuenta de NexoAccManager"
+      },
+      "stepsMac": {
+        "1": "Descarga el archivo .dmg desde GitHub Releases",
+        "2": "Abre el .dmg y arrastra NexoAccManager a Aplicaciones",
+        "3": "Inicia NexoAccManager desde Launchpad (permitiendo ejecución si es necesario)",
+        "4": "Inicia sesión con tu cuenta de NexoAccManager"
+      },
+      "stepsLinux": {
+        "1": "Descarga el archivo .AppImage desde GitHub Releases",
+        "2": "Dale permisos de ejecución: chmod +x NexoAccManager.AppImage",
+        "3": "Ejecuta: ./NexoAccManager.AppImage (o haz doble clic)",
+        "4": "Inicia sesión con tu cuenta de NexoAccManager"
+      }
+    },
+    "settings": {
+      "title": "Configuración",
+      "language": "Idioma",
+      "theme": "Tema",
+      "notifications": "Notificaciones",
+      "emailNotifications": "Notificaciones por correo electrónico",
+      "saveChanges": "Guardar cambios",
+      "saved": "Configuración guardada",
+      "dark": "Oscuro",
+      "light": "Claro",
+      "robloxClassic": "Clásico Roblox",
+      "custom": "Personalizado",
+      "customInfo": "Disponible en plan Enterprise"
+    }
   }
 }

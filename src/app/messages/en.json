@@ -45,5 +45,90 @@
     "features": "Features",
     "pricing": "Pricing",
     "faq": "FAQ"
+  },
+  "nav": {
+    "overview": "Overview",
+    "billing": "Billing",
+    "download": "Download",
+    "settings": "Settings",
+    "backToHome": "Back to Home"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": {
+      "title": "Overview",
+      "currentPlan": "Current Plan",
+      "accountUsage": "Account Usage",
+      "nextPayment": "Next Payment",
+      "renewsOn": "Renews on",
+      "accountsUsed": "{current} of {limit} accounts used",
+      "upgrade": "Upgrade Plan",
+      "viewBilling": "View Billing"
+    },
+    "billing": {
+      "title": "Billing",
+      "currentPlan": "Current Plan",
+      "planPrice": "Plan Price",
+      "changePlan": "Change Plan",
+      "nextPayment": "Next Payment",
+      "renewsOn": "Renews on",
+      "paymentHistory": "Payment History",
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "paid": "Paid",
+      "pending": "Pending",
+      "failed": "Failed",
+      "cancelled": "Cancelled",
+      "cancelSubscription": "Cancel Subscription",
+      "cancelConfirm": "Are you sure you want to cancel your subscription? You will lose access to your plan features."
+    },
+    "download": {
+      "title": "Download",
+      "subtitle": "Download and install NexoAccManager on your device",
+      "selectOS": "Select your operating system",
+      "windows": "Windows",
+      "mac": "macOS",
+      "linux": "Linux",
+      "downloadBtn": "Download for {os}",
+      "reqs": "System Requirements",
+      "reqsList": {
+        "windows": "Windows 10 or higher · 4GB RAM · 500MB space",
+        "mac": "macOS 11 Big Sur or higher · 4GB RAM · 500MB space",
+        "linux": "Ubuntu 20.04 / Debian 11 or higher · 4GB RAM · 500MB space"
+      },
+      "stepsWindows": {
+        "1": "Download the .exe installer from GitHub Releases",
+        "2": "Run the installer and follow the setup wizard",
+        "3": "Launch NexoAccManager from the Start Menu",
+        "4": "Sign in with your NexoAccManager account"
+      },
+      "stepsMac": {
+        "1": "Download the .dmg file from GitHub Releases",
+        "2": "Open the .dmg and drag NexoAccManager to Applications",
+        "3": "Launch NexoAccManager from Launchpad (allow if prompted)",
+        "4": "Sign in with your NexoAccManager account"
+      },
+      "stepsLinux": {
+        "1": "Download the .AppImage file from GitHub Releases",
+        "2": "Make it executable: chmod +x NexoAccManager.AppImage",
+        "3": "Run: ./NexoAccManager.AppImage (or double-click)",
+        "4": "Sign in with your NexoAccManager account"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "notifications": "Notifications",
+      "emailNotifications": "Email Notifications",
+      "saveChanges": "Save Changes",
+      "saved": "Settings saved",
+      "dark": "Dark",
+      "light": "Light",
+      "robloxClassic": "Roblox Classic",
+      "custom": "Custom",
+      "customInfo": "Available on Enterprise plan"
+    }
   }
 }
