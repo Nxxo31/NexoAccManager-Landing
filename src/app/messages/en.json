@@ -1,5 +1,31 @@
 {
   "auth": {
+    "errors": {
+      "requiredFields": "Please fill in all required fields",
+      "passwordMismatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "termsRequired": "You must accept the terms and conditions",
+      "registrationFailed": "Registration failed. Please try again",
+      "emailFailed": "Failed to send email. Please try again",
+      "resetFailed": "Password reset failed. Please try again",
+      "verificationFailed": "Verification failed. Invalid or expired token",
+      "invalidEmail": "Please enter a valid email address"
+    },
+    "messages": {
+      "registrationSuccess": "Registration successful! Please check your email to verify your account",
+      "resetEmailSent": "If an account exists with that email, you will receive a password reset link",
+      "resetSuccess": "Your password has been reset successfully. You can now log in"
+    },
+    "register": {
+      "title": "Create an account",
+      "submit": "Sign up",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "terms": "I accept the terms and conditions",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Log in"
+    },
     "forgotPassword": {
       "title": "Forgot Password",
       "subtitle": "Enter your email to reset your password",

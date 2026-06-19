@@ -1,5 +1,31 @@
 {
   "auth": {
+    "errors": {
+      "requiredFields": "Por favor completa todos los campos requeridos",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+      "termsRequired": "Debes aceptar los términos y condiciones",
+      "registrationFailed": "Error en el registro. Por favor intenta de nuevo",
+      "emailFailed": "Error al enviar el correo. Por favor intenta de nuevo",
+      "resetFailed": "Error al restablecer la contraseña. Por favor intenta de nuevo",
+      "verificationFailed": "Verificación fallida. Token inválido o expirado",
+      "invalidEmail": "Por favor ingresa un correo electrónico válido"
+    },
+    "messages": {
+      "registrationSuccess": "¡Registro exitoso! Por favor verifica tu correo para activar tu cuenta",
+      "resetEmailSent": "Si existe una cuenta con ese correo, recibirás un enlace de restablecimiento",
+      "resetSuccess": "Tu contraseña ha sido restablecida exitosamente. Ahora puedes iniciar sesión"
+    },
+    "register": {
+      "title": "Crear una cuenta",
+      "submit": "Registrarse",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "terms": "Acepto los términos y condiciones",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar sesión"
+    },
     "forgotPassword": {
       "title": "Olvidé mi contraseña",
       "subtitle": "Ingresa tu correo para restablecer tu contraseña",

@@ -1,5 +1,31 @@
 {
   "auth": {
+    "errors": {
+      "requiredFields": "Por favor preencha todos os campos obrigatórios",
+      "passwordMismatch": "As senhas não coincidem",
+      "passwordTooShort": "A senha deve ter pelo menos 8 caracteres",
+      "termsRequired": "Você deve aceitar os termos e condições",
+      "registrationFailed": "Falha no registro. Por favor tente novamente",
+      "emailFailed": "Falha ao enviar o email. Por favor tente novamente",
+      "resetFailed": "Falha ao redefinir a senha. Por favor tente novamente",
+      "verificationFailed": "Verificação falhou. Token inválido ou expirado",
+      "invalidEmail": "Por favor insira um endereço de email válido"
+    },
+    "messages": {
+      "registrationSuccess": "Registro bem-sucedido! Por favor verifique seu email para ativar sua conta",
+      "resetEmailSent": "Se existir uma conta com esse email, você receberá um link para redefinir a senha",
+      "resetSuccess": "Sua senha foi redefinida com sucesso. Agora você pode fazer login"
+    },
+    "register": {
+      "title": "Criar uma conta",
+      "submit": "Registrar",
+      "email": "Endereço de email",
+      "password": "Senha",
+      "confirmPassword": "Confirmar senha",
+      "terms": "Aceito os termos e condições",
+      "alreadyHaveAccount": "Já tem uma conta?",
+      "login": "Entrar"
+    },
     "forgotPassword": {
       "title": "Esqueci minha senha",
       "subtitle": "Digite seu e-mail para redefinir sua senha",
