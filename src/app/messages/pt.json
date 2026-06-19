@@ -79,6 +79,118 @@
     "settings": "Configurações",
     "backToHome": "Voltar ao Início"
   },
+  "landing": {
+    "hero": {
+      "badge": "Disponível para Windows — Mac e Linux em breve",
+      "headline": "O gerenciador de contas Roblox",
+      "headlineHighlight": "que os pros usam",
+      "subheadline": "Criptografia local AES-256-GCM, Multi-Roblox, API REST. Sem comprometer seus cookies.",
+      "ctaPrimary": "Começar grátis",
+      "ctaSecondary": "Ver recursos",
+      "stat1": "100% grátis para começar",
+      "stat2": "Sem cartão de crédito",
+      "stat3": "Configuração em 30 segundos",
+      "mockupAccounts": "Contas ativas",
+      "mockupServerBrowser": "Server Browser",
+      "mockupServerBrowserSubtitle": "Procurar servidores",
+      "mockupImportExport": "Import/Export",
+      "mockupImportExportSubtitle": "Migrar dados"
+    },
+    "features": {
+      "title": "Tudo o que você precisa para gerenciar suas contas",
+      "titleHighlight": "gerenciar suas contas",
+      "subtitle": "Deixe ferramentas obsoletas para trás. NexoAccManager combina segurança, desempenho e design moderno em uma única plataforma.",
+      "item1Title": "Criptografia AES-256-GCM",
+      "item1Desc": "Seus cookies Roblox nunca saem do seu PC. Criptografia local derivada do hardware.",
+      "item2Title": "Multi-Roblox",
+      "item2Desc": "Inicie várias instâncias de Roblox simultaneamente sem conflitos.",
+      "item3Title": "API REST local",
+      "item3Desc": "Backend local em Fastify para gerenciar contas e lançamentos. Porta 8080.",
+      "item4Title": "Import/Export",
+      "item4Desc": "Migre suas contas facilmente entre dispositivos com arquivos JSON seguros.",
+      "item5Title": "Auto Cookie Refresh",
+      "item5Desc": "Renova automaticamente seu cookie .ROBLOSECURITY antes de expirar.",
+      "item6Title": "Server Browser",
+      "item6Desc": "Encontre e entre em servidores Roblox diretamente do app.",
+      "comparisonTitle": "NexoAccManager vs RAM Original",
+      "comparisonRam": "RAM Original",
+      "comparisonNexo": "NexoAccManager",
+      "comparisonFeature": "Característica",
+      "comparisonStack": "Stack",
+      "comparisonPlatform": "Plataforma",
+      "comparisonUi": "UI/UX",
+      "comparisonEncryption": "Criptografia",
+      "comparisonMulti": "Multi-Roblox",
+      "comparisonServer": "Server Browser",
+      "comparisonSupport": "Suporte ativo"
+    },
+    "faq": {
+      "title": "Perguntas",
+      "titleHighlight": "Frequentes",
+      "q1": "O NexoAccManager é gratuito?",
+      "a1": "Sim, oferecemos um plano gratuito com 5 contas Roblox e recursos básicos. Para acessar mais funcionalidades, você pode atualizar para um dos nossos planos pagos.",
+      "q2": "Meus cookies Roblox estão seguros?",
+      "a2": "Absolutamente. Seus cookies .ROBLOSECURITY nunca saem do seu PC. Usamos criptografia AES-256-GCM derivada do hardware para armazená-los localmente e de forma segura.",
+      "q3": "Posso usar o NexoAccManager no Mac ou Linux?",
+      "a3": "Atualmente o NexoAccManager está disponível para Windows. As versões para macOS e Linux estão no nosso roadmap e serão lançadas em breve.",
+      "q4": "O que é o Server Browser?",
+      "a4": "O Server Browser permite pesquisar e entrar em servidores Roblox diretamente do aplicativo, com filtros por região, ping e tipo de jogo.",
+      "q5": "Como funciona o Auto Cookie Refresh?",
+      "a5": "Renova automaticamente seu cookie .ROBLOSECURITY antes de expirar, mantendo você conectado sem interrupções ou necessidade de login manual.",
+      "q6": "Vocês oferecem suporte técnico?",
+      "a6": "Sim, todos os nossos planos incluem suporte. O plano gratuito tem suporte por Discord, enquanto os planos pagos incluem suporte por email e prioritário conforme o nível."
+    },
+    "footer": {
+      "description": "O gerenciador de contas Roblox que os pros usam",
+      "product": "Produto",
+      "legal": "Legal",
+      "terms": "Termos de serviço",
+      "privacy": "Política de privacidade",
+      "language": "Idioma",
+      "copyright": "Todos os direitos reservados."
+    },
+    "pricing": {
+      "title": "Planos",
+      "titleHighlight": "transparentes",
+      "subtitle": "Escolha o plano que atende às suas necessidades. Sem surpresas, sem compromisso.",
+      "monthly": "Mensal",
+      "annual": "Anual",
+      "annualDiscount": "-20%",
+      "perMonth": "/mês",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "description": "Para começar",
+          "features": ["5 contas Roblox", "Server Browser", "Dark Theme", "Suporte via Discord"],
+          "cta": "Começar grátis"
+        },
+        "starter": {
+          "name": "Starter",
+          "description": "Para entusiastas",
+          "features": ["10 contas Roblox", "Auto Cookie Refresh", "Presence Dashboard", "Light Theme", "Suporte por email"],
+          "cta": "Escolher Starter"
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "Para profissionais",
+          "features": ["20 contas Roblox", "Smart Server Selection", "Player Finder", "3 temas (Dark/Light/Roblox)", "Suporte prioritário"],
+          "cta": "Escolher Pro"
+        },
+        "business": {
+          "name": "Business",
+          "description": "Para equipes",
+          "features": ["30 contas Roblox", "Account Control Panel completo", "Dashboard Web", "API REST local", "Suporte prioritário 24h"],
+          "cta": "Escolher Business"
+        },
+        "enterprise": {
+          "name": "Enterprise",
+          "description": "Sem limites",
+          "features": ["Contas ilimitadas", "Custom Themes", "Suporte dedicado", "SLA garantido", "Onboarding personalizado"],
+          "cta": "Contactar"
+        }
+      }
+    }
+  },
   "dashboard": {
     "title": "Painel de Controle",
     "overview": {
@@ -126,13 +238,13 @@
       "stepsWindows": {
         "1": "Baixe o instalador .exe do GitHub Releases",
         "2": "Execute o instalador e siga as instruções do assistente",
-        "3": "Inicie NexoAccManager no menu Iniciar",
+        "3": "Inicie o NexoAccManager no menu Iniciar",
         "4": "Inicie sessão com sua conta NexoAccManager"
       },
       "stepsMac": {
         "1": "Baixe o arquivo .dmg do GitHub Releases",
         "2": "Abra o .dmg e arraste NexoAccManager para Aplicativos",
-        "3": "Inicie NexoAccManager no Launchpad (permitindo execução se necessário)",
+        "3": "Inicie o NexoAccManager no Launchpad (permitindo execução se necessário)",
         "4": "Inicie sessão com sua conta NexoAccManager"
       },
       "stepsLinux": {

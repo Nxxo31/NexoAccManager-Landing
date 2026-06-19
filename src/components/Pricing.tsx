@@ -1,107 +1,35 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
-const plans = [
-  {
-    name: 'Free',
-    price: 0,
-    description: 'Para empezar',
-    features: [
-      '5 cuentas Roblox',
-      'Server Browser',
-      'Dark Theme',
-      'Soporte por Discord',
-    ],
-    cta: 'Empezar gratis',
-    highlighted: false,
-  },
-  {
-    name: 'Starter',
-    price: 5,
-    description: 'Para entusiastas',
-    features: [
-      '10 cuentas Roblox',
-      'Auto Cookie Refresh',
-      'Presence Dashboard',
-      'Light Theme',
-      'Soporte por email',
-    ],
-    cta: 'Elegir Starter',
-    highlighted: true,
-  },
-  {
-    name: 'Pro',
-    price: 10,
-    description: 'Para profesionales',
-    features: [
-      '20 cuentas Roblox',
-      'Smart Server Selection',
-      'Player Finder',
-      '3 temas (Dark/Light/Roblox)',
-      'Soporte prioritario',
-    ],
-    cta: 'Elegir Pro',
-    highlighted: false,
-  },
-  {
-    name: 'Business',
-    price: 20,
-    description: 'Para equipos',
-    features: [
-      '30 cuentas Roblox',
-      'Account Control Panel completo',
-      'Dashboard Web',
-      'API REST local',
-      'Soporte prioritario 24h',
-    ],
-    cta: 'Elegir Business',
-    highlighted: false,
-  },
-  {
-    name: 'Enterprise',
-    price: 50,
-    description: 'Sin límites',
-    features: [
-      'Cuentas ilimitadas',
-      'Custom Themes',
-      'Soporte dedicado',
-      'SLA garantizado',
-      'Onboarding personalizado',
-    ],
-    cta: 'Contactar',
-    highlighted: false,
-  },
-];
+const planKeys = ['free', 'starter', 'pro', 'business', 'enterprise'] as const;
 
 export default function Pricing() {
+  const t = useTranslations('landing.pricing');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
+
   const handleCheckout = async (planName: string) => {
     try {
       const res = await fetch('/api/stripe/checkout-session', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ plan: planName }),
-      })
-      
+      });
+
       if (!res.ok) {
-        throw new Error('Failed to create checkout session')
+        throw new Error('Failed to create checkout session');
       }
-      
-      const data = await res.json()
-      // Redirect to Stripe checkout
+
+      const data = await res.json();
       if (data.url) {
-        window.location.href = data.url
+        window.location.href = data.url;
       }
     } catch (error) {
-      console.error('Checkout error:', error)
-      alert('Error al crear la sesión de pago. Por favor, intenta nuevamente.')
+      console.error('Checkout error:', error);
+      alert('Error al crear la sesión de pago. Por favor, intenta nuevamente.');
     }
-  }
-
+  };
 
   return (
     <section id="pricing" className="relative py-24 px-6">
@@ -109,10 +37,11 @@ export default function Pricing() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Planes <span className="gradient-text">transparentes</span>
+            {t('title')}{' '}
+            <span className="gradient-text">{t('titleHighlight')}</span>
           </h2>
           <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            Elige el plan que se adapte a tus necesidades. Sin sorpresas, sin compromiso.
+            {t('subtitle')}
           </p>
 
           {/* Billing Toggle */}
@@ -125,7 +54,7 @@ export default function Pricing() {
                   : 'text-text-secondary hover:text-white'
               }`}
             >
-              Mensual
+              {t('monthly')}
             </button>
             <button
               onClick={() => setBillingCycle('annual')}
@@ -135,53 +64,57 @@ export default function Pricing() {
                   : 'text-text-secondary hover:text-white'
               }`}
             >
-              Anual <span className="text-xs text-green-400">-20%</span>
+              {t('annual')} <span className="text-xs text-green-400">{t('annualDiscount')}</span>
             </button>
           </div>
         </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`glass p-6 flex flex-col transition-all hover:scale-[1.02] ${
-                plan.highlighted
-                  ? 'border-primary/50 shadow-lg shadow-primary/10'
-                  : ''
-              }`}
-            >
-              <div className="mb-6">
-                <h3 className="text-xl font-bold">{plan.name}</h3>
-                <p className="text-text-secondary text-sm">{plan.description}</p>
-              </div>
+          {planKeys.map((planKey) => {
+            const features = t.raw(`plans.${planKey}.features`) as string[];
+            const isHighlighted = planKey === 'starter';
+            const price = planKey === 'free' ? 0 : planKey === 'starter' ? 5 : planKey === 'pro' ? 10 : planKey === 'business' ? 20 : 50;
 
-              <div className="mb-6">
-                <span className="text-4xl font-bold">${plan.price}</span>
-                <span className="text-text-secondary">/mes</span>
-              </div>
-
-              <ul className="space-y-3 mb-8 flex-1">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm">
-                    <span className="text-green-400 flex-shrink-0">✓</span>
-                    <span className="text-text-secondary">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-                            <button
-                onClick={() => handleCheckout(plan.name)}
-                className={`block w-full text-center py-3 rounded-lg font-medium transition-all ${
-                  plan.highlighted
-                    ? 'bg-primary text-white hover:bg-primary-dark'
-                    : 'bg-bg-surface border border-border hover:border-primary'
+            return (
+              <div
+                key={planKey}
+                className={`glass p-6 flex flex-col transition-all hover:scale-[1.02] ${
+                  isHighlighted ? 'border-primary/50 shadow-lg shadow-primary/10' : ''
                 }`}
               >
-                {plan.cta}
-              </button>
-            </div>
-          ))}
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold">{t(`plans.${planKey}.name`)}</h3>
+                  <p className="text-text-secondary text-sm">{t(`plans.${planKey}.description`)}</p>
+                </div>
+
+                <div className="mb-6">
+                  <span className="text-4xl font-bold">${price}</span>
+                  <span className="text-text-secondary">{t('perMonth')}</span>
+                </div>
+
+                <ul className="space-y-3 mb-8 flex-1">
+                  {features.map((feature, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm">
+                      <span className="text-green-400 flex-shrink-0">✓</span>
+                      <span className="text-text-secondary">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  onClick={() => handleCheckout(t.raw(`plans.${planKey}.name`) as string)}
+                  className={`block w-full text-center py-3 rounded-lg font-medium transition-all ${
+                    isHighlighted
+                      ? 'bg-primary text-white hover:bg-primary-dark'
+                      : 'bg-bg-surface border border-border hover:border-primary'
+                  }`}
+                >
+                  {t(`plans.${planKey}.cta`)}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

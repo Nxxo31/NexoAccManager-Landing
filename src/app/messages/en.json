@@ -79,6 +79,118 @@
     "settings": "Settings",
     "backToHome": "Back to Home"
   },
+  "landing": {
+    "hero": {
+      "badge": "Available for Windows — Mac and Linux coming soon",
+      "headline": "The Roblox account manager",
+      "headlineHighlight": "that the pros use",
+      "subheadline": "Local AES-256-GCM encryption, Multi-Roblox, REST API. Without compromising your cookies.",
+      "ctaPrimary": "Get started free",
+      "ctaSecondary": "View features",
+      "stat1": "100% free to get started",
+      "stat2": "No credit card required",
+      "stat3": "Set up in 30 seconds",
+      "mockupAccounts": "Active accounts",
+      "mockupServerBrowser": "Server Browser",
+      "mockupServerBrowserSubtitle": "Search servers",
+      "mockupImportExport": "Import/Export",
+      "mockupImportExportSubtitle": "Migrate data"
+    },
+    "features": {
+      "title": "Everything you need to manage your accounts",
+      "titleHighlight": "manage your accounts",
+      "subtitle": "Leave obsolete tools behind. NexoAccManager combines security, performance, and modern design in a single platform.",
+      "item1Title": "AES-256-GCM Encryption",
+      "item1Desc": "Your Roblox cookies never leave your PC. Hardware-derived local encryption.",
+      "item2Title": "Multi-Roblox",
+      "item2Desc": "Launch multiple Roblox instances simultaneously without conflicts.",
+      "item3Title": "Local REST API",
+      "item3Desc": "Local Fastify backend to manage accounts and launches. Port 8080.",
+      "item4Title": "Import/Export",
+      "item4Desc": "Migrate your accounts easily between devices with secure JSON files.",
+      "item5Title":"Auto Cookie Refresh",
+      "item5Desc": "Automatically renews your .ROBLOSECURITY cookie before it expires.",
+      "item6Title": "Server Browser",
+      "item6Desc": "Find and join Roblox servers directly from the app.",
+      "comparisonTitle": "NexoAccManager vs RAM Original",
+      "comparisonRam": "RAM Original",
+      "comparisonNexo": "NexoAccManager",
+      "comparisonFeature": "Feature",
+      "comparisonStack": "Stack",
+      "comparisonPlatform": "Platform",
+      "comparisonUi": "UI/UX",
+      "comparisonEncryption": "Encryption",
+      "comparisonMulti": "Multi-Roblox",
+      "comparisonServer": "Server Browser",
+      "comparisonSupport": "Active support"
+    },
+    "faq": {
+      "title": "Frequently Asked",
+      "titleHighlight": "Questions",
+      "q1": "Is NexoAccManager free?",
+      "a1": "Yes, we offer a free plan with 5 Roblox accounts and basic features. To access more features, you can upgrade to one of our paid plans.",
+      "q2": "Are my Roblox cookies safe?",
+      "a2": "Absolutely. Your .ROBLOSECURITY cookies never leave your PC. We use hardware-derived AES-256-GCM local encryption to store them securely.",
+      "q3": "Can I use NexoAccManager on Mac or Linux?",
+      "a3": "Currently NexoAccManager is available for Windows. macOS and Linux versions are on our roadmap and will be released soon.",
+      "q4": "What is the Server Browser?",
+      "a4": "The Server Browser lets you search and join Roblox servers directly from the application, with filters by region, ping, and game type.",
+      "q5": "How does Auto Cookie Refresh work?",
+      "a5": "It automatically renews your .ROBLOSECURITY cookie before it expires, keeping you connected without interruptions or manual login.",
+      "q6": "Do you offer technical support?",
+      "a6": "Yes, all our plans include support. The free plan has Discord support, while paid plans include email and priority support depending on the tier."
+    },
+    "footer": {
+      "description": "The Roblox account manager that the pros use",
+      "product": "Product",
+      "legal": "Legal",
+      "terms": "Terms of service",
+      "privacy": "Privacy policy",
+      "language": "Language",
+      "copyright": "All rights reserved."
+    },
+    "pricing": {
+      "title": "Plans",
+      "titleHighlight": "with transparent pricing",
+      "subtitle": "Choose the plan that fits your needs. No surprises, no commitment.",
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "annualDiscount": "-20%",
+      "perMonth": "/month",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "description": "To get started",
+          "features": ["5 Roblox accounts", "Server Browser", "Dark Theme", "Discord support"],
+          "cta": "Get started free"
+        },
+        "starter": {
+          "name": "Starter",
+          "description": "For enthusiasts",
+          "features": ["10 Roblox accounts", "Auto Cookie Refresh", "Presence Dashboard", "Light Theme", "Email support"],
+          "cta": "Choose Starter"
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "For professionals",
+          "features": ["20 Roblox accounts", "Smart Server Selection", "Player Finder", "3 themes (Dark/Light/Roblox)", "Priority support"],
+          "cta": "Choose Pro"
+        },
+        "business": {
+          "name": "Business",
+          "description": "For teams",
+          "features": ["30 Roblox accounts", "Full Account Control Panel", "Web Dashboard", "Local REST API", "24h priority support"],
+          "cta": "Choose Business"
+        },
+        "enterprise": {
+          "name": "Enterprise",
+          "description": "No limits",
+          "features": ["Unlimited accounts", "Custom Themes", "Dedicated support", "Guaranteed SLA", "Custom onboarding"],
+          "cta": "Contact us"
+        }
+      }
+    }
+  },
   "dashboard": {
     "title": "Dashboard",
     "overview": {
@@ -88,17 +200,17 @@
       "nextPayment": "Next Payment",
       "renewsOn": "Renews on",
       "accountsUsed": "{current} of {limit} accounts used",
-      "upgrade": "Upgrade Plan",
-      "viewBilling": "View Billing"
+      "upgrade": "Upgrade plan",
+      "viewBilling": "View billing"
     },
     "billing": {
       "title": "Billing",
-      "currentPlan": "Current Plan",
-      "planPrice": "Plan Price",
-      "changePlan": "Change Plan",
-      "nextPayment": "Next Payment",
+      "currentPlan": "Current plan",
+      "planPrice": "Plan price",
+      "changePlan": "Change plan",
+      "nextPayment": "Next payment",
       "renewsOn": "Renews on",
-      "paymentHistory": "Payment History",
+      "paymentHistory": "Payment history",
       "date": "Date",
       "amount": "Amount",
       "status": "Status",
@@ -106,7 +218,7 @@
       "pending": "Pending",
       "failed": "Failed",
       "cancelled": "Cancelled",
-      "cancelSubscription": "Cancel Subscription",
+      "cancelSubscription": "Cancel subscription",
       "cancelConfirm": "Are you sure you want to cancel your subscription? You will lose access to your plan features."
     },
     "download": {
@@ -117,7 +229,7 @@
       "mac": "macOS",
       "linux": "Linux",
       "downloadBtn": "Download for {os}",
-      "reqs": "System Requirements",
+      "reqs": "System requirements",
       "reqsList": {
         "windows": "Windows 10 or higher · 4GB RAM · 500MB space",
         "mac": "macOS 11 Big Sur or higher · 4GB RAM · 500MB space",
@@ -147,8 +259,8 @@
       "language": "Language",
       "theme": "Theme",
       "notifications": "Notifications",
-      "emailNotifications": "Email Notifications",
-      "saveChanges": "Save Changes",
+      "emailNotifications": "Email notifications",
+      "saveChanges": "Save changes",
       "saved": "Settings saved",
       "dark": "Dark",
       "light": "Light",

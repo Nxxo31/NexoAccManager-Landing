@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export default function Hero() {
+  const t = useTranslations('landing.hero');
   const particleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -49,34 +51,32 @@ export default function Hero() {
           {/* Badge */}
           <div className="hero-fade-in inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-text-secondary">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            Disponible para Windows — Mac y Linux próximamente
+            {t('badge')}
           </div>
 
           {/* Headline */}
           <h1 className="hero-fade-in-delayed text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
             <span className="gradient-text">
-              El gestor de cuentas Roblox
+              {t('headline')}
             </span>
             <br />
             <span className="text-white">
-              que los pros usan
+              {t('headlineHighlight')}
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="hero-fade-in-delayed-2 text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Cifrado local AES-256-GCM, Multi-Roblox, API REST.
-            <br />
-            Sin comprometer tus cookies.
+            {t('subheadline')}
           </p>
 
           {/* CTAs */}
           <div className="hero-fade-in-delayed-2 flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Link href="/register" className="cta-primary">
-              Empezar gratis
+              {t('ctaPrimary')}
             </Link>
             <Link href="#features" className="cta-secondary">
-              Ver características
+              {t('ctaSecondary')}
             </Link>
           </div>
 
@@ -86,19 +86,19 @@ export default function Hero() {
               <span className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
                 ✓
               </span>
-              100% gratuito para empezar
+              {t('stat1')}
             </div>
             <div className="flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
                 ✓
               </span>
-              Sin tarjeta de crédito
+              {t('stat2')}
             </div>
             <div className="flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
                 ✓
               </span>
-              Setup en 30 segundos
+              {t('stat3')}
             </div>
           </div>
         </div>
@@ -141,20 +141,20 @@ export default function Hero() {
                 <div className="h-32 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg border border-white/5 flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-primary">5</div>
-                    <div className="text-xs text-text-secondary">Cuentas activas</div>
+                    <div className="text-xs text-text-secondary">{t('mockupAccounts')}</div>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="h-24 bg-bg-card/30 rounded-lg border border-white/5 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="text-lg font-semibold">Server Browser</div>
-                      <div className="text-xs text-text-secondary">Buscar servers</div>
+                      <div className="text-lg font-semibold">{t('mockupServerBrowser')}</div>
+                      <div className="text-xs text-text-secondary">{t('mockupServerBrowserSubtitle')}</div>
                     </div>
                   </div>
                   <div className="h-24 bg-bg-card/30 rounded-lg border border-white/5 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="text-lg font-semibold">Import/Export</div>
-                      <div className="text-xs text-text-secondary">Migrar datos</div>
+                      <div className="text-lg font-semibold">{t('mockupImportExport')}</div>
+                      <div className="text-xs text-text-secondary">{t('mockupImportExportSubtitle')}</div>
                     </div>
                   </div>
                 </div>

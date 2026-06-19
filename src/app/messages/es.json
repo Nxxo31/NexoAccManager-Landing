@@ -79,6 +79,118 @@
     "settings": "Configuración",
     "backToHome": "Volver al inicio"
   },
+  "landing": {
+    "hero": {
+      "badge": "Disponible para Windows — Mac y Linux próximamente",
+      "headline": "El gestor de cuentas Roblox",
+      "headlineHighlight": "que los pros usan",
+      "subheadline": "Cifrado local AES-256-GCM, Multi-Roblox, API REST. Sin comprometer tus cookies.",
+      "ctaPrimary": "Empezar gratis",
+      "ctaSecondary": "Ver características",
+      "stat1": "100% gratuito para empezar",
+      "stat2": "Sin tarjeta de crédito",
+      "stat3": "Setup en 30 segundos",
+      "mockupAccounts": "Cuentas activas",
+      "mockupServerBrowser": "Server Browser",
+      "mockupServerBrowserSubtitle": "Buscar servers",
+      "mockupImportExport": "Import/Export",
+      "mockupImportExportSubtitle": "Migrar datos"
+    },
+    "features": {
+      "title": "Todo lo que necesitas para gestionar tus cuentas",
+      "titleHighlight": "gestionar tus cuentas",
+      "subtitle": "Deja atrás las herramientas obsoletas. NexoAccManager combina seguridad, rendimiento y diseño moderno en una sola plataforma.",
+      "item1Title": "Cifrado AES-256-GCM",
+      "item1Desc": "Tus cookies Roblox nunca salen del PC. Cifrado local derivado del hardware.",
+      "item2Title": "Multi-Roblox",
+      "item2Desc": "Lanza múltiples instancias de Roblox simultáneas sin conflictos.",
+      "item3Title": "API REST local",
+      "item3Desc": "Backend local en Fastify para gestionar cuentas y lanzamientos. Puerto 8080.",
+      "item4Title": "Import/Export",
+      "item4Desc": "Migra tus cuentas fácilmente entre dispositivos con archivos JSON seguros.",
+      "item5Title": "Auto Cookie Refresh",
+      "item5Desc": "Renueva tu cookie .ROBLOSECURITY automáticamente antes de que expire.",
+      "item6Title": "Server Browser",
+      "item6Desc": "Encuentra y únete a servidores de Roblox directamente desde la app.",
+      "comparisonTitle": "NexoAccManager vs RAM Original",
+      "comparisonRam": "RAM Original",
+      "comparisonNexo": "NexoAccManager",
+      "comparisonFeature": "Característica",
+      "comparisonStack": "Stack",
+      "comparisonPlatform": "Plataforma",
+      "comparisonUi": "UI/UX",
+      "comparisonEncryption": "Cifrado",
+      "comparisonMulti": "Multi-Roblox",
+      "comparisonServer": "Server Browser",
+      "comparisonSupport": "Soporte activo"
+    },
+    "faq": {
+      "title": "Preguntas",
+      "titleHighlight": "frecuentes",
+      "q1": "¿NexoAccManager es gratuito?",
+      "a1": "Sí, ofrecemos un plan gratuito con 5 cuentas Roblox y funcionalidades básicas. Para acceder a más características, puedes actualizar a uno de nuestros planes de pago.",
+      "q2": "¿Mis cookies de Roblox están seguras?",
+      "a2": "Absolutamente. Tus cookies .ROBLOSECURITY nunca salen de tu PC. Utilizamos cifrado AES-256-GCM derivado del hardware para almacenarlas de forma local y segura.",
+      "q3": "¿Puedo usar NexoAccManager en Mac o Linux?",
+      "a3": "Actualmente NexoAccManager está disponible para Windows. Las versiones para macOS y Linux están en nuestro roadmap y serán lanzadas próximamente.",
+      "q4": "¿Qué es el Server Browser?",
+      "a4": "El Server Browser te permite buscar y unirte a servidores de Roblox directamente desde la aplicación, con filtros por región, ping y tipo de juego.",
+      "q5": "¿Cómo funciona el Auto Cookie Refresh?",
+      "a5": "Renueva automáticamente tu cookie .ROBLOSECURITY antes de que expire, manteniéndote conectado sin interrupciones ni necesidad de iniciar sesión manualmente.",
+      "q6": "¿Ofrecen soporte técnico?",
+      "a6": "Sí, todos nuestros planes incluyen soporte. El plan gratuito tiene soporte por Discord, mientras que los planes de pago incluyen soporte por email y prioritario según el nivel."
+    },
+    "footer": {
+      "description": "El gestor de cuentas Roblox que los pros usan",
+      "product": "Producto",
+      "legal": "Legal",
+      "terms": "Términos de servicio",
+      "privacy": "Política de privacidad",
+      "language": "Idioma",
+      "copyright": "Todos los derechos reservados."
+    },
+    "pricing": {
+      "title": "Planes",
+      "titleHighlight": "transparentes",
+      "subtitle": "Elige el plan que se adapte a tus necesidades. Sin sorpresas, sin compromiso.",
+      "monthly": "Mensual",
+      "annual": "Anual",
+      "annualDiscount": "-20%",
+      "perMonth": "/mes",
+      "plans": {
+        "free": {
+          "name": "Free",
+          "description": "Para empezar",
+          "features": ["5 cuentas Roblox", "Server Browser", "Dark Theme", "Soporte por Discord"],
+          "cta": "Empezar gratis"
+        },
+        "starter": {
+          "name": "Starter",
+          "description": "Para entusiastas",
+          "features": ["10 cuentas Roblox", "Auto Cookie Refresh", "Presence Dashboard", "Light Theme", "Soporte por email"],
+          "cta": "Elegir Starter"
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "Para profesionales",
+          "features": ["20 cuentas Roblox", "Smart Server Selection", "Player Finder", "3 temas (Dark/Light/Roblox)", "Soporte prioritario"],
+          "cta": "Elegir Pro"
+        },
+        "business": {
+          "name": "Business",
+          "description": "Para equipos",
+          "features": ["30 cuentas Roblox", "Account Control Panel completo", "Dashboard Web", "API REST local", "Soporte prioritario 24h"],
+          "cta": "Elegir Business"
+        },
+        "enterprise": {
+          "name": "Enterprise",
+          "description": "Sin límites",
+          "features": ["Cuentas ilimitadas", "Custom Themes", "Soporte dedicado", "SLA garantizado", "Onboarding personalizado"],
+          "cta": "Contactar"
+        }
+      }
+    }
+  },
   "dashboard": {
     "title": "Panel de control",
     "overview": {
@@ -128,7 +240,7 @@
       "installGuide": "Guía de instalación",
       "stepsWindows": {
         "1": "Descarga el instalador .exe desde GitHub Releases",
-        "2": "Ejecuta el instalador y sigue las instrucciones del asistente",
+        "2": "Ejecuta el instalador y siga las instrucciones del asistente",
         "3": "Inicia NexoAccManager desde el menú de inicio",
         "4": "Inicia sesión con tu cuenta de NexoAccManager"
       },

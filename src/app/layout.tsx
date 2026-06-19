@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { NextIntlClientProvider } from 'next-intl';
+import messages from './messages/es.json';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,7 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <NextIntlClientProvider locale="es" messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }
