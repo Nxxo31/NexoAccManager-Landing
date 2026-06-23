@@ -18,12 +18,5 @@
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
       ]
     }
-  ],
-  "redirects": [
-    {
-      "source": "/",
-      "has": [{ "type": "header", "key": "x-locale" }],
-      "destination": "/:header(x-locale)/"
-    }
   ]
 }
